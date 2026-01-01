@@ -15,11 +15,20 @@ class BaseRateSensor(SensorEntity):
     def __init__(self, entry):
         self.entry = entry
 
-    def _is_day(self):
+    def _current_period(self):
         now = datetime.now().time()
-        day_start = datetime.strptime(self.entry.data["day_start"], "%H:%M").time()
+
         night_start = datetime.strptime(self.entry.data["night_start"], "%H:%M").time()
-        return day_start <= now < night_start
+        day_start = datetime.strptime(self.entry.data["day_start"], "%H:%M").time()
+        peak_start = datetime.strptime(self.entry.data["peak_start"], "%H:%M").time()
+        peak_end = datetime.strptime(self.entry.data["peak_end"], "%H:%M").time()
+
+        if peak_start <= now < peak_end:
+            return "peak"
+        elif day_start <= now < night_start:
+            return "day"
+        else:
+            return "night"
 
 class ImportRateSensor(BaseRateSensor):
     _attr_name = "Ireland Energy Import Rate"
@@ -27,11 +36,10 @@ class ImportRateSensor(BaseRateSensor):
 
     @property
     def native_value(self):
-        return (
-            self.entry.data["import_day_rate"]
-            if self._is_day()
-            else self.entry.data["import_night_rate"]
-        )
+        period = self._current_period()
+
+        return self.entry.data[f"import_{period}_rate"]
+
 
 class ExportRateSensor(BaseRateSensor):
     _attr_name = "Ireland Energy Export Rate"
@@ -39,8 +47,7 @@ class ExportRateSensor(BaseRateSensor):
 
     @property
     def native_value(self):
-        return (
-            self.entry.data["export_day_rate"]
-            if self._is_day()
-            else self.entry.data["export_night_rate"]
-        )
+        period = self._current_period()
+
+        return self.entry.data[f"export_{period}_rate"]
+
