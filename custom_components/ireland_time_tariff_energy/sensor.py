@@ -6,6 +6,13 @@ async def async_setup_entry(hass, entry, async_add_entities):
         ImportRateSensor(entry),
         ExportRateSensor(entry),
     ])
+async def async_setup_entry(hass, entry, async_add_entities):
+    async_add_entities([
+        ImportRateSensor(entry),
+        ExportRateSensor(entry),
+    ])
+
+
 
 class BaseRateSensor(SensorEntity):
     _attr_unit_of_measurement = "EUR/kWh"
