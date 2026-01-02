@@ -1,8 +1,9 @@
 {
   "domain": "ireland_time_tariff_energy",
   "name": "Ireland Time-Based Energy Tariffs",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "config_flow": true,
   "documentation": "https://github.com/d4diaz/ireland_time_tariff_energy",
-  "iot_class": "local_polling"
+  "iot_class": "local_polling",
+  "platforms": ["sensor"]
 }
