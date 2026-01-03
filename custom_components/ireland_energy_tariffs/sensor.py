@@ -57,4 +57,12 @@ class ExportRateSensor(BaseRateSensor):
         period = self._current_period()
 
         return self.entry.data[f"export_{period}_rate"]
+        
+    def is_weekend():
+    return datetime.now().weekday() >= 5
+    IF night boost active → use boost rate
+ELSE:
+  IF weekend → use weekend rates
+  ELSE → use weekday rates
+
 
