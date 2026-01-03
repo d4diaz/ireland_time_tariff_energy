@@ -11,6 +11,17 @@ Designed primarily for **Irish electricity tariffs**, but configurable for any c
 
 ---
 
+✨ New features:
+- Built-in electricity cost sensors (Day / Night / Peak)
+- No YAML required
+- Automatic statistics support
+- Cost breakdown ready for dashboards
+
+🔧 Improvements:
+- Refactored rate sensors (rates only)
+- New internal cost engine
+- Clean separation of concerns
+
 ## ✨ Features
 
 - ✅ Day / Night / Peak pricing
