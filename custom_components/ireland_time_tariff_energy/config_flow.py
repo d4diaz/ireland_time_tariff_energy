@@ -224,3 +224,10 @@ class IrelandTimeTariffConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             step_id="export_rates",
             data_schema=vol.Schema(fields),
         )
+vol.Required("grid_import_sensor"): selector.EntitySelector(
+    selector.EntitySelectorConfig(
+        domain="sensor",
+        device_class="energy"
+    )
+)
+entry.data["grid_import_sensor"]
